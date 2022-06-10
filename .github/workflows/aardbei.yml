@@ -22,11 +22,11 @@ on:
     tags:
       - '![1-9].[0-9]+*'
 
-   workflow_call:
-        outputs:
-            thething:
-                description: "THE MOST RANDOM NUMBER"
-                value: ${{ jobs.get-thing.outputs.thing }}
+  workflow_call:
+    outputs:
+      thething:
+        description: "THE MOST RANDOM NUMBER"
+        value: ${{ jobs.get-thing.outputs.thing }}
 
 jobs:
   get-thing:
