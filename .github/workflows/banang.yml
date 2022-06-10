@@ -6,7 +6,7 @@ on:
     paths:
       - '**.txt'
       - '**.yml'
-      - '.github/workflows/banana.yml'
+      - '.github/workflows/banang.yml'
     branches:
       - brain
     tags:
@@ -16,7 +16,7 @@ on:
     paths:
       - '**.txt'
       - '**.yml'
-      - '.github/workflows/banana.yml'
+      - '.github/workflows/banang.yml'
     branches:
       - brain
     tags:
