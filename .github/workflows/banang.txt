@@ -1,0 +1,46 @@
+---
+name: banang
+
+on:
+  push:
+    paths:
+      - '**.txt'
+      - '**.yml'
+      - '.github/workflows/banana.yml'
+    branches:
+      - brain
+    tags:
+      - '![1-9].[0-9]+*'
+
+  pull_request:
+    paths:
+      - '**.txt'
+      - '**.yml'
+      - '.github/workflows/banana.yml'
+    branches:
+      - brain
+    tags:
+      - '![1-9].[0-9]+*'
+
+jobs:
+  my_aardbei:
+    uses: ./workflows/aardbei.yml@brain
+    
+  mainjob:
+    runs-on: ${{ matrix.os }}
+    
+    needs: [ my_aardbei ]
+    
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ windows-2022 ]
+        zed: [ x, y ]
+    
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+        
+        - name: Do Thing Also
+          run: |
+            echo 'PROGRESS GOES BONK: ${{ needs.my_aardbei.outputs.thething }}'

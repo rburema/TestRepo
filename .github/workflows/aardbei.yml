@@ -1,11 +1,12 @@
 ---
-name: aardappel
+name: aardbei
 
 on:
   push:
     paths:
       - '**.txt'
-      - '.github/workflows/aardappel.yml'
+      - '**.yml'
+      - '.github/workflows/aardbei.yml'
     branches:
       - brain
     tags:
@@ -14,17 +15,24 @@ on:
   pull_request:
     paths:
       - '**.txt'
-      - '.github/workflows/aardappel.yml'
+      - '**.yml'
+      - '.github/workflows/aardbei.yml'
     branches:
       - brain
     tags:
       - '![1-9].[0-9]+*'
 
+   workflow_call:
+        outputs:
+            thething:
+                description: "THE MOST RANDOM NUMBER"
+                value: ${{ jobs.get-thing.outputs.thing }}
+
 jobs:
   get-thing:
-    runs-on: ubuntu-2022
+    runs-on: ubuntu-20.04
     
-    output:
+    outputs:
         thing: ${{ steps.thing.outputs.THING }}
     
     steps:
@@ -37,13 +45,13 @@ jobs:
             echo '::set-output name=THING::17'
     
   mainjob:
-    runs-on: {{'matrix.os'}}
+    runs-on: ${{ matrix.os }}
     
     needs: [ get-thing ]
     
     strategy:
-    fail-fast: true
-    matrix:
+      fail-fast: true
+      matrix:
         os: [ windows-2022 ]
         zed: [ a, b, c]
     
@@ -53,4 +61,4 @@ jobs:
         
         - name: Do Thing
           run: |
-            echo 'YES: ${{ needs.get-semver.outputs.user }}'
+            echo 'YES: ${{ needs.get-thing.outputs.THING }}'
