@@ -37,7 +37,7 @@ jobs:
             echo '::set-output name=THING::17'
     
   mainjob:
-    runs-on: {{'matrix.os'}}
+    runs-on: ${{ matrix.os }}
     
     needs: [ get-thing ]
     
