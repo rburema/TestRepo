@@ -24,7 +24,7 @@ on:
 
 jobs:
   get-thing:
-    runs-on: ubuntu-2022
+    runs-on: ubuntu-20.04
     
     outputs:
         thing: ${{ steps.thing.outputs.THING }}
@@ -55,4 +55,4 @@ jobs:
         
         - name: Do Thing
           run: |
-            echo 'YES: ${{ needs.get-semver.outputs.user }}'
+            echo 'YES: ${{ needs.get-thing.outputs.THING }}'
