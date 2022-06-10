@@ -24,7 +24,7 @@ on:
 
 jobs:
   my_aardbei:
-    uses: .github/workflows/aardbei.yml@brain
+    uses: ./.github/workflows/aardbei.yml@brain
     
   mainjob:
     runs-on: ${{ matrix.os }}
