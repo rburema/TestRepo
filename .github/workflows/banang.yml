@@ -55,7 +55,7 @@ jobs:
 
         - name: What's That OS String?
           run: |
-            echo "OS_NAME=${{ (matrix.os == 'ninzononzenze' && 'xyz') || (matrix.os == 'windows_2022' && 'WINBDOWS_$(uuidgen)') || (matrix.os == 'blaaaah' && 'bloeh') || 'os_name_missing_$(uuidgen)' }}" >> $GITHUB_ENV
+            echo "OS_NAME=${{ (matrix.os == 'ninzononzenze' && 'xyz') || (matrix.os == 'rrwindows-2022' && 'WINBDOWS_') || (matrix.os == 'blaaaah' && 'bloeh') || matrix.os }}" >> $GITHUB_ENV
 
         - name: Do Thing Also
           run: |
