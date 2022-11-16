@@ -59,4 +59,4 @@ jobs:
 
         - name: Do Thing Also
           run: |
-            echo 'PROGRESS GOES BONK: $RANDOM | ${{ needs.my_aardbei.outputs.thething }} | ${{ env.OS_NAME } | ${{ inputs.blah_blah_blah }}'
+            echo 'PROGRESS GOES BONK: $RANDOM | ${{ needs.my_aardbei.outputs.thething }} | ${{ env.OS_NAME }} | ${{ inputs.blah_blah_blah }}'
