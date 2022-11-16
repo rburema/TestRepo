@@ -31,9 +31,6 @@ on:
     tags:
       - '![1-9].[0-9]+*'
 
-env:
-    OS_NAME: 'os_name_missing'
-
 jobs:
   my_aardbei:
     uses: ./.github/workflows/aardbei.yml
@@ -58,7 +55,11 @@ jobs:
 
         - name: What's That OS String?
           run: |
-            echo 'OS_NAME=${{ (matrix.os == 'ninzononzenze' && 'xyz') || (matrix.os == 'windows-2022' && 'win64') || (matrix.os == 'blaaaah' && 'bloeh') }}' >> $GITHUB_ENV
+            echo "_FOR_MAC=${{matrix.os == 'macos_11' && 'macncheeze_$(uuidgen)'}}" >> $GITHUB_ENV
+            echo "_FOR_WIN=${{matrix.os == 'windows_2022' && 'WINBDOWS_$(uuidgen)'}}" >> $GITHUB_ENV
+            echo "_FOR_LIN_OLD=${{matrix.os == 'ubuntu_20.04' && '2yearsisoldnow'}}" >> $GITHUB_ENV
+            echo "_FOR_LIN_NEW=${{matrix.os == 'ubuntu_22.04' && 'bleedingedge'}}" >> $GITHUB_ENV
+            echo "OS_NAME=${{ _FOR_MAC || _FOR_WIN || _FOR_LIN_OLD || _FOR_LIN_NEW || 'os_name_missing_$(uuidgen)' }}" >> $GITHUB_ENV
 
         - name: Do Thing Also
           run: |
