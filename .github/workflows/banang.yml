@@ -43,8 +43,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ windows-2022 ]
-        zed: [ x, y ]
+        include:
+            - { os: windows-2022, zed: x }
+            - { os: windows-2022, zed: y }
         exclude:
             - zed: ${{ inputs.blah_blah_blah ? 'x' : 'y' }}
 
