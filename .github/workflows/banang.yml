@@ -43,11 +43,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-2022]
+        os: [windows-2022, ubuntu-22.04]
         zed: [x, y]
         exclude:
-            - zed: ${{ inputs.blah_blah_blah && 'x' || '' }}
-            - zed: ${{ inputs.blah_blah_blah && '' || 'y' }}
+            - os: ${{ inputs.blah_blah_blah && 'windows-2022' || '' }}
+            - os: ${{ inputs.blah_blah_blah && '' || 'ubuntu-22.04' }}
 
     steps:
         - name: Checkout
@@ -55,8 +55,8 @@ jobs:
 
         - name: What's That OS String?
           run: |
-            echo "OS_NAME=${{ (matrix.os == 'ninzononzenze' && 'xyz') || (matrix.os == 'rrwindows-2022' && 'WINBDOWS_') || (matrix.os == 'blaaaah' && 'bloeh') || matrix.os }}" >> $GITHUB_ENV
+            echo "OS_NAME=${{ (matrix.os == 'ubuntu-22.04' && 'LNIUX') || (matrix.os == 'windows-2022' && 'WINBDOWS') || (matrix.os == 'blaaaah' && 'bloeh') || matrix.os }}" >> $GITHUB_ENV
 
         - name: Do Thing Also
           run: |
-            echo 'PROGRESS GOES BONK: $RANDOM | ${{ needs.my_aardbei.outputs.thething }} | $OS_NAME | ${{ inputs.blah_blah_blah }}'
+            echo 'PROGRESS GOES BONK: $RANDOM | ${{ needs.my_aardbei.outputs.thething }} | ${{ env.OS_NAME } | ${{ inputs.blah_blah_blah }}'
