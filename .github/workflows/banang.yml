@@ -5,10 +5,15 @@ on:
 
   workflow_dispatch:
     inputs:
-        blah_blah_blah:
-            description: ":banana: :apple: :rocket:"
+        winblah:
+            description: "WIN16"
             type: boolean
             default: true
+            required: true
+        ublah:
+            description: "TUX"
+            type: boolean
+            default: false
             required: true
 
   push:
@@ -31,6 +36,9 @@ on:
     tags:
       - '![1-9].[0-9]+*'
 
+env:
+    OS_NAME: 'unkown-os'
+
 jobs:
   my_aardbei:
     uses: ./.github/workflows/aardbei.yml
@@ -46,8 +54,8 @@ jobs:
         os: [windows-2022, ubuntu-22.04]
         zed: [x, y]
         exclude:
-            - os: ${{ inputs.blah_blah_blah && 'windows-2022' || '' }}
-            - os: ${{ inputs.blah_blah_blah && '' || 'ubuntu-22.04' }}
+            - os: ${{ inputs.winblah && '' || 'windows-2022' }}
+            - os: ${{ inputs.ublah && '' || 'ubuntu-22.04' }}
 
     steps:
         - name: Checkout
