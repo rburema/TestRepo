@@ -42,22 +42,27 @@ env:
 jobs:
   my_aardbei:
     uses: ./.github/workflows/aardbei.yml
-    
+
+  set_os:
+    runs-on: ubuntu-latest
+    outputs:
+        matrix: ${{ steps.ososos.outputs.matrix }}
+    steps:
+        - name: OS/2 Warp 4.1
+          id: ososos
+          run: |
+            echo "matrix=${{ join([(inputs.ublah && '{name: ubuntu-22.04}' || '{}'), (inputs.winblah && '{name: windows-2022}' || '{}')].*.name, ',')}}" >> $GITHUB_OUTPUT
+
   mainjob:
     runs-on: ${{ matrix.os }}
     
-    needs: [ my_aardbei ]
+    needs: [ set_os, my_aardbei ]
     
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-2022, ubuntu-22.04]
+        os: ${{ fromJson(needs.set_os.outputs.matrix) }}
         zed: [x, y]
-        exclude:
-          if: ${{ ! inputs.winblah }}
-            - os: windows-2022
-          if: ${{ ! inputs.ublah }}
-            - os: ubunbtu-22.04
 
     steps:
         - name: Checkout
