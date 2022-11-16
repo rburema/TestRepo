@@ -54,8 +54,10 @@ jobs:
         os: [windows-2022, ubuntu-22.04]
         zed: [x, y]
         exclude:
-            - os: ${{ (! inputs.winblah) && 'windows-2022' || 'DUMMY-VALUE' }}
-            - os: ${{ (! inputs.ublah) && 'ubuntu-22.04' || 'VALUE-DUMMY' }}
+            - os: windows-2022
+              if: ${{ ! inputs.winblah }}
+            - os: ubunbtu-22.04
+              if: ${{ ! inputs.ublah }}
 
     steps:
         - name: Checkout
