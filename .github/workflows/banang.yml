@@ -59,7 +59,7 @@ jobs:
             echo "_FOR_WIN=${{matrix.os == 'windows_2022' && 'WINBDOWS_$(uuidgen)'}}" >> $GITHUB_ENV
             echo "_FOR_LIN_OLD=${{matrix.os == 'ubuntu_20.04' && '2yearsisoldnow'}}" >> $GITHUB_ENV
             echo "_FOR_LIN_NEW=${{matrix.os == 'ubuntu_22.04' && 'bleedingedge'}}" >> $GITHUB_ENV
-            echo "OS_NAME=${{ _FOR_MAC || _FOR_WIN || _FOR_LIN_OLD || _FOR_LIN_NEW || 'os_name_missing_$(uuidgen)' }}" >> $GITHUB_ENV
+            echo "OS_NAME=${{ $_FOR_MAC || $_FOR_WIN || $_FOR_LIN_OLD || $_FOR_LIN_NEW || 'os_name_missing_$(uuidgen)' }}" >> $GITHUB_ENV
 
         - name: Do Thing Also
           run: |
