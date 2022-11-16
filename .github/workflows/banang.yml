@@ -54,10 +54,10 @@ jobs:
         os: [windows-2022, ubuntu-22.04]
         zed: [x, y]
         exclude:
+          if: ${{ ! inputs.winblah }}
             - os: windows-2022
-              if: ${{ ! inputs.winblah }}
+          if: ${{ ! inputs.ublah }}
             - os: ubunbtu-22.04
-              if: ${{ ! inputs.ublah }}
 
     steps:
         - name: Checkout
