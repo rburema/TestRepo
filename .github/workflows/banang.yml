@@ -3,13 +3,13 @@ name: banang
 
 on:
 
-  workflow_dispatch:
-    inputs:
-        blah_blah_blah:
-            description: ":banana: :apple: :rocket:"
-            type: boolean
-            default: true
-            required: true
+  #workflow_dispatch:
+  #  inputs:
+  #      blah_blah_blah:
+  #          description: ":banana: :apple: :rocket:"
+  #          type: boolean
+  #          default: true
+  #          required: true
 
   push:
     paths:
@@ -44,8 +44,8 @@ jobs:
         fail-fast: false
         matrix:
             include:
-                - { os: windows-2022, zed: x, runOn: ${{ inputs.blah_blah_blah }} }
-                - { os: windows-2022, zed: y, runOn: ${{ ! inputs.blah_blah_blah }} }
+                - { os: windows-2022, zed: x }
+                - { os: windows-2022, zed: y }
             #os: [ windows-2022 ]
             #zed: [ x, y ]
 
