@@ -41,15 +41,13 @@ jobs:
     needs: [ my_aardbei ]
     
     strategy:
-        fail-fast: false
-        matrix:
-            include:
-                -   { os: windows-2022, zed: x }
-                    if: {{ inputs.blah_blah_blah }}
-                -   { os: windows-2022, zed: y }
-                    if: {{ ! inputs.blah_blah_blah }}
-            #os: [ windows-2022 ]
-            #zed: [ x, y ]
+      fail-fast: false
+      matrix:
+        include:
+            - { os: windows-2022, zed: x }
+            - { os: windows-2022, zed: y }
+        exclude:
+            - zed: ${{ inputs.blah_blah_blah ? 'x' : 'y' }}
 
     steps:
         - name: Checkout
