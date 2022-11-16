@@ -31,6 +31,9 @@ on:
     tags:
       - '![1-9].[0-9]+*'
 
+env:
+    OS_NAME: 'os_name_missing'
+
 jobs:
   my_aardbei:
     uses: ./.github/workflows/aardbei.yml
@@ -43,16 +46,20 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-            - { os: windows-2022, zed: x }
-            - { os: windows-2022, zed: y }
+        os: [windows-2022]
+        zed: [x, y]
         exclude:
-            - zed: ${{ inputs.blah_blah_blah && 'x' || 'y' }}
+            - zed: ${{ inputs.blah_blah_blah && 'x' || '' }}
+            - zed: ${{ inputs.blah_blah_blah && '' || 'y' }}
 
     steps:
         - name: Checkout
           uses: actions/checkout@v3
-        
+
+        - name: What's That OS String?
+          run: |
+            echo 'OS_NAME=${{ (matrix.os == 'ninzononzenze' && 'xyz') || (matrix.os == 'windows-2022' && 'win64') || (matrix.os == 'blaaaah' && 'bloeh') }}' >> $GITHUB_ENV
+
         - name: Do Thing Also
           run: |
-            echo 'PROGRESS GOES BONK: ${{ needs.my_aardbei.outputs.thething }} ${{ inputs.blah_blah_blah }}'
+            echo 'PROGRESS GOES BONK: $RANDOM | ${{ needs.my_aardbei.outputs.thething }} | $OS_NAME | ${{ inputs.blah_blah_blah }}'
