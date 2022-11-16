@@ -2,6 +2,15 @@
 name: banang
 
 on:
+
+  workflow_dispatch:
+    inputs:
+        blah_blah_blah:
+            description: ":banana: :apple: :rocket:"
+            type: boolean
+            default: true
+            required: true
+
   push:
     paths:
       - '**.txt'
@@ -36,11 +45,13 @@ jobs:
       matrix:
         os: [ windows-2022 ]
         zed: [ x, y ]
-    
+        include:
+            - { os: windows-2022, zed: z, runOn: ${{ inputs.blah_blah_blah }} }
+
     steps:
         - name: Checkout
           uses: actions/checkout@v3
         
         - name: Do Thing Also
           run: |
-            echo 'PROGRESS GOES BONK: ${{ needs.my_aardbei.outputs.thething }}'
+            echo 'PROGRESS GOES BONK: ${{ needs.my_aardbei.outputs.thething }} ${{ inputs.blah_blah_blah }}'
