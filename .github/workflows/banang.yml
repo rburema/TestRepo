@@ -41,12 +41,13 @@ jobs:
     needs: [ my_aardbei ]
     
     strategy:
-      fail-fast: true
-      matrix:
-        os: [ windows-2022 ]
-        zed: [ x, y ]
-        include:
-            - { os: windows-2022, zed: z, runOn: ${{ inputs.blah_blah_blah }} }
+        fail-fast: false
+        matrix:
+            include:
+                - { os: windows-2022, zed: x, runOn: ${{ inputs.blah_blah_blah }} }
+                - { os: windows-2022, zed: y, runOn: ${{ ! inputs.blah_blah_blah }} }
+            #os: [ windows-2022 ]
+            #zed: [ x, y ]
 
     steps:
         - name: Checkout
