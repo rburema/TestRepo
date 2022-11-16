@@ -44,10 +44,10 @@ jobs:
         fail-fast: false
         matrix:
             include:
-                if: {{ inputs.blah_blah_blah }}
-                - { os: windows-2022, zed: x }
-                if: {{ ! inputs.blah_blah_blah }}
-                - { os: windows-2022, zed: y }
+                -   { os: windows-2022, zed: x }
+                    if: {{ inputs.blah_blah_blah }}
+                -   { os: windows-2022, zed: y }
+                    if: {{ ! inputs.blah_blah_blah }}
             #os: [ windows-2022 ]
             #zed: [ x, y ]
 
