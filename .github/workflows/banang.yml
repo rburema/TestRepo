@@ -46,7 +46,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ${{ fromJson(inputs.all_platforms) }}
+        os: ${{ inputs.all_platforms }}
         zed: [x, y]
 
     steps:

@@ -53,8 +53,8 @@ jobs:
       fail-fast: true
       matrix:
         os: [ windows-2022 ]
-        zed: [ a, b, c]
-    
+        zed: [ a ]
+
     steps:
         - name: Checkout
           uses: actions/checkout@v3
