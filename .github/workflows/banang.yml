@@ -5,15 +5,10 @@ on:
 
   workflow_dispatch:
     inputs:
-        winblah:
-            description: "WIN16"
-            type: boolean
-            default: true
-            required: true
-        ublah:
-            description: "TUX"
-            type: boolean
-            default: false
+        all_platforms:
+            description: "Platforms To Build For"
+            type: string
+            default: '[windows-2022, ubuntu-20.04]'
             required: true
 
   push:
@@ -43,16 +38,6 @@ jobs:
   my_aardbei:
     uses: ./.github/workflows/aardbei.yml
 
-  set_os:
-    runs-on: ubuntu-latest
-    outputs:
-        matrix: ${{ steps.ososos.outputs.matrix }}
-    steps:
-        - name: OS/2 Warp 4.1
-          id: ososos
-          run: |
-            echo "matrix=${{ join([(inputs.ublah && '{name: ubuntu-22.04}' || '{}'), (inputs.winblah && '{name: windows-2022}' || '{}')].*.name, ',')}}" >> $GITHUB_OUTPUT
-
   mainjob:
     runs-on: ${{ matrix.os }}
     
@@ -61,7 +46,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ${{ fromJson(needs.set_os.outputs.matrix) }}
+        os: ${{ fromJson(inputs.all_platforms) }}
         zed: [x, y]
 
     steps:
@@ -74,4 +59,4 @@ jobs:
 
         - name: Do Thing Also
           run: |
-            echo 'PROGRESS GOES BONK: $RANDOM | ${{ needs.my_aardbei.outputs.thething }} | ${{ env.OS_NAME }} | ${{ inputs.blah_blah_blah }}'
+            echo 'PROGRESS GOES BONK: $RANDOM | ${{ needs.my_aardbei.outputs.thething }} | ${{ env.OS_NAME }} | ${{ inputs.all_platforms }}'
