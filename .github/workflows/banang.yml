@@ -41,7 +41,7 @@ jobs:
   mainjob:
     runs-on: ${{ matrix.os }}
     
-    needs: [ set_os, my_aardbei ]
+    needs: [ my_aardbei ]
     
     strategy:
       fail-fast: false
