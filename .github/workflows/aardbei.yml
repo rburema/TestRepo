@@ -42,8 +42,8 @@ jobs:
         - id: thing
           name: Stuff Thing
           run: |
-            echo '::set-output name=THING::17'
-    
+            echo 'THING=17' >> $GITHUB_OUTPUT
+
   mainjob:
     runs-on: ${{ matrix.os }}
     

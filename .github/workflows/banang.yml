@@ -8,7 +8,7 @@ on:
         all_platforms:
             description: "Platforms To Build For"
             type: string
-            default: '[windows-2022, ubuntu-20.04]'
+            default: "[\"windows-2022\", \"ubuntu-20.04\"]"
             required: true
 
   push:
@@ -46,7 +46,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ${{ inputs.all_platforms }}
+        os: ${{ fromJson(inputs.all_platforms) }}
         zed: [x, y]
 
     steps:
