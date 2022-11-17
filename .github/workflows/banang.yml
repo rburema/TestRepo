@@ -5,9 +5,10 @@ on:
 
   workflow_dispatch:
     inputs:
-        all_platforms:
-            description: "Platforms To Build For"
-            default: [windows-2022, ubuntu-20.04]
+        platforms:
+            description: "Build For Platform"
+            type: string
+            default: 'windows-2022'
             required: true
 
   push:
@@ -38,15 +39,15 @@ jobs:
     uses: ./.github/workflows/aardbei.yml
 
   mainjob:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.platform }}
     
     needs: [ my_aardbei ]
     
-    strategy:
-      fail-fast: false
-      matrix:
-        os: ${{ inputs.all_platforms }}
-        zed: [x, y]
+    #strategy:
+    #  fail-fast: false
+    #  matrix:
+    #    os: ${{ inputs.all_platforms }}
+    #    zed: [x, y]
 
     steps:
         - name: Checkout
