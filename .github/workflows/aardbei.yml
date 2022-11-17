@@ -1,6 +1,13 @@
 ---
 name: aardbei
 
+inputs:
+  aaa:
+    description: "NURBs"
+    required: true
+    type: string
+    default: 'windows-2022'
+
 on:
   push:
     paths:
@@ -45,15 +52,15 @@ jobs:
             echo 'THING=17' >> $GITHUB_OUTPUT
 
   mainjob:
-    runs-on: ${{ matrix.os }}
-    
+    runs-on: ${{ inputs.aaa }}
+
     needs: [ get-thing ]
     
-    strategy:
-      fail-fast: true
-      matrix:
-        os: [ windows-2022 ]
-        zed: [ a ]
+    #strategy:
+    #  fail-fast: true
+    #  matrix:
+    #    os: [ windows-2022 ]
+    #    zed: [ a ]
 
     steps:
         - name: Checkout

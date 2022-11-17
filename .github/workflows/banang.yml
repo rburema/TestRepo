@@ -4,12 +4,6 @@ name: banang
 on:
 
   workflow_dispatch:
-    inputs:
-        platform:
-            description: "Build For Platform"
-            type: string
-            default: 'windows-2022'
-            required: true
 
   push:
     paths:
@@ -35,19 +29,26 @@ env:
     OS_NAME: 'unkown-os'
 
 jobs:
-  my_aardbei:
+  windows_aardbei:
     uses: ./.github/workflows/aardbei.yml
+    with:
+        aaa: 'windows-2022'
+
+  linux_aardbei:
+      uses: ./.github/workflows/aardbei.yml
+      with:
+        aaa: 'ubuntu-latest'
 
   mainjob:
-    runs-on: ${{ inputs.platform }}
+    runs-on: ${{ matrix.os }}
     
-    needs: [ my_aardbei ]
+    needs: [ windows_aardbei ]
     
-    #strategy:
-    #  fail-fast: false
-    #  matrix:
-    #    os: ${{ inputs.all_platforms }}
-    #    zed: [x, y]
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2022]
+        zed: [x]
 
     steps:
         - name: Checkout
