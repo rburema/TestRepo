@@ -31,8 +31,14 @@ env:
 jobs:
   windows_aardbei:
     uses: ./.github/workflows/aardbei.yml
+
+    strategy:
+      fail-fast: false
+      matrix:
+        aaa: [windows-2022]
+
     with:
-        aaa: 'windows-2022'
+        aaa: ${{ matrix.aaa }}
 
   linux_aardbei:
       uses: ./.github/workflows/aardbei.yml
@@ -60,4 +66,4 @@ jobs:
 
         - name: Do Thing Also
           run: |
-            echo 'PROGRESS GOES BONK: $RANDOM | ${{ needs.my_aardbei.outputs.thething }} | ${{ env.OS_NAME }} | ${{ inputs.all_platforms }}'
+            echo 'PROGRESS GOES BONK: $RANDOM | ${{ needs.windows_aardbei.outputs.thething }} | ${{ env.OS_NAME }} | ${{ inputs.all_platforms }}'

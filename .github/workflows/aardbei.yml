@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-20.04
     
     outputs:
-        thing: ${{ steps.thing.outputs.THING }}
+        thing: ${{ steps.thing.outputs.thing }}
     
     steps:
         - name: Checkout
@@ -48,10 +48,10 @@ jobs:
         - id: thing
           name: Stuff Thing
           run: |
-            echo 'THING=17' >> $GITHUB_OUTPUT
+            echo "thing=17" >> $GITHUB_OUTPUT
 
   mainjob:
-    runs-on: ${{ inputs.aaa }}
+    runs-on: ${{ inputs.aaa || 'windows-2022' }}
 
     needs: [ get-thing ]
     
@@ -67,4 +67,4 @@ jobs:
         
         - name: Do Thing
           run: |
-            echo 'YES: ${{ needs.get-thing.outputs.THING }}'
+            echo 'YES: ${{ needs.get-thing.outputs.thing }}'
