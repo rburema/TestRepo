@@ -7,8 +7,7 @@ on:
     inputs:
         platform:
             description: "Build For Platform"
-            type: string
-            default: 'windows-2022'
+            default: windows-2022
             required: true
 
   push:
