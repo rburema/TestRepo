@@ -2,14 +2,6 @@
 name: aardbei
 
 on:
-  workflow_dispatch:
-    inputs:
-      aaa:
-        description: "NURBs"
-        required: true
-        type: string
-        default: 'windows-2022'
-
   push:
     paths:
       - '**.txt'
@@ -31,6 +23,12 @@ on:
       - '![1-9].[0-9]+*'
 
   workflow_call:
+    inputs:
+      aaa:
+        description: "NURBs"
+        required: true
+        type: string
+        default: 'windows-2022'
     outputs:
       thething:
         description: "THE MOST RANDOM NUMBER"
