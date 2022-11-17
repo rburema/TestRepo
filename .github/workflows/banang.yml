@@ -5,9 +5,10 @@ on:
 
   workflow_dispatch:
     inputs:
-        platforms:
+        platform:
             description: "Build For Platform"
-            default: windows-2022
+            type: string
+            default: 'windows-2022'
             required: true
 
   push:
