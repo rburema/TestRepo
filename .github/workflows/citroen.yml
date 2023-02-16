@@ -35,6 +35,6 @@ jobs:
 
         - name: Reproduction Of Error
           run: |
-			sudo apt-cache rdepends odbcinst1debian2
-			sudo apt-cache rdepends odbcinst
-			sudo apt-cache rdepends libodbc1
+            sudo apt-cache rdepends odbcinst1debian2
+            sudo apt-cache rdepends odbcinst
+            sudo apt-cache rdepends libodbc1
