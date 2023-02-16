@@ -1,0 +1,40 @@
+---
+name: citroen
+
+on:
+
+  workflow_dispatch:
+
+  push:
+    paths:
+      - '**.txt'
+      - '**.yml'
+      - '.github/workflows/citroen.yml'
+    branches:
+      - brain
+    tags:
+      - '![1-9].[0-9]+*'
+
+  pull_request:
+    paths:
+      - '**.txt'
+      - '**.yml'
+      - '.github/workflows/citroen.yml'
+    branches:
+      - brain
+    tags:
+      - '![1-9].[0-9]+*'
+
+jobs:
+  repro:
+    runs-on: ubuntu22.04
+        
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+
+        - name: Reproduction Of Error
+          run: |
+			sudo apt-cache rdepends odbcinst1debian2
+			sudo apt-cache rdepends odbcinst
+			sudo apt-cache rdepends libodbc1
