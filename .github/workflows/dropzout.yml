@@ -117,7 +117,23 @@ jobs:
                     cmake --preset release
                     cmake --build --preset release
 
+            -   name: Checkout .def.json files from Cura frontend
+                run: |
+                    mkdir resc
+                    cd resc
+                    git init
+                    git sparse-checkout set resources/definitions resources/extruders
+                    git remote add -f origin https://github.com/Ultimaker/Cura
+                    git pull origin main
+                    cd ..
+
             -   name: Run CuraEngine On The Jobs
                 run: |
-                    ./CuraEngine connect 127.0.0.1
+                    export CURA_ENGINE_SEARCH_PATH=./resc/resources/definitions:./resc/resources/extruders
+                    ls
+                    ls ./build
+                    ls ./tests
+                    ls ./tests/integration/resources
+                    ./build/Release/CuraEngine slice --force-read-parent --force-read-nondefault -v -p -j ultimaker_s3.def.json -l ./tests/integration/resources/cube.stl -o ./cube.gcode
+                    #./build/Release/CuraEngine slice --force-read-parent --force-read-nondefault -v -p -j ultimaker_s3.def.json -l ./tests/integration/resources/cylinder1000.stl -o ./cylinder1000.gcode
                 working-directory: build/Release
