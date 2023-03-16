@@ -99,7 +99,7 @@ jobs:
                     conan config install https://github.com/Ultimaker/conan-config.git
 
             -   name: Install dependencies and configure (default)
-                if: ! ${{ inputs.engine_package_id }}
+                if: (! ${{ inputs.engine_package_id }})
                 run: conan install . curaengine/latest@ultimaker/stable -s build_type=Release --build=missing --update -g GitHubActionsRunEnv -g GitHubActionsBuildEnv
 
             -   name: Install dependencies and configure (on manual dispatch)
@@ -119,5 +119,5 @@ jobs:
 
             -   name: Run CuraEngine On The Jobs
                 run: |
-                    .CuraEngine connect 127.0.0.1
+                    ./CuraEngine connect 127.0.0.1
                 working-directory: build/Release
