@@ -44,7 +44,7 @@ env:
 
 jobs:
 
-    build-engine:
+    run-nightly-tests:
         runs-on: ubuntu-20.04
 
         steps:
@@ -130,10 +130,10 @@ jobs:
             -   name: Run CuraEngine On The Jobs
                 run: |
                     export CURA_ENGINE_SEARCH_PATH=./resc/resources/definitions:./resc/resources/extruders
-                    ls
-                    ls ./build
+                    #ls
+                    #ls ./build
                     ls ./tests
                     ls ./tests/integration/resources
-                    ./build/Release/CuraEngine slice --force-read-parent --force-read-nondefault -v -p -j ultimaker_s3.def.json -l ./tests/integration/resources/cube.stl -o ./cube.gcode
+                    ./CuraEngine slice --force-read-parent --force-read-nondefault -v -p -j ultimaker_s3.def.json -l ./tests/integration/resources/cube.stl -o ./cube.gcode
                     #./build/Release/CuraEngine slice --force-read-parent --force-read-nondefault -v -p -j ultimaker_s3.def.json -l ./tests/integration/resources/cylinder1000.stl -o ./cylinder1000.gcode
                 working-directory: build/Release
