@@ -10,6 +10,16 @@ on:
         default: 'curaengine/latest@ultimaker/stable'
         required: true
         type: string
+      engine_branch:
+        description: 'Branch-name for CuraEngine.'
+        default: 'main'
+        required: true
+        type: string
+      analyze_branch:
+        description: 'Branch-name for GCodeAnalyzer.'
+        default: 'main'
+        required: true
+        type: string
       #test_list:
         #description:
 
@@ -49,10 +59,36 @@ jobs:
 
         steps:
             -   name: Checkout CuraEngine
+                if: (! ${{ inputs.engine_branch }})
                 uses: actions/checkout@v3
                 with:
                     repository: 'Ultimaker/CuraEngine'
                     ref: 'main'
+                    path: 'CuraEngine'
+
+            -   name: Checkout CuraEngine
+                if: ${{ inputs.engine_branch }}
+                uses: actions/checkout@v3
+                with:
+                    repository: 'Ultimaker/CuraEngine'
+                    ref: '${{ inputs.engine_branch }}'
+                    path: 'CuraEngine'
+
+            -   name: Checkout GCodeAnalyzer
+                if: (! ${{ inputs.analyze_branch }})
+                uses: actions/checkout@v3
+                with:
+                    repository: 'Ultimaker/GCodeAnalyzer'
+                    ref: 'main'
+                    path: 'GCodeAnalyzer'
+
+            -   name: Checkout GCodeAnalyzer
+                if: ${{ inputs.analyze_branch }}
+                uses: actions/checkout@v3
+                with:
+                    repository: 'Ultimaker/GCodeAnalyzer'
+                    ref: '${{ inputs.analyze_branch }}'
+                    path: 'GCodeAnalyzer'
 
             -   name: Setup Python and pip
                 uses: actions/setup-python@v4
@@ -112,14 +148,9 @@ jobs:
                     . ./activate_github_actions_buildenv.sh
                 working-directory: build/generators
 
-            -   name: Build CuraEngine
-                run: |
-                    cmake --preset release
-                    cmake --build --preset release
-
             -   name: Checkout .def.json files from Cura frontend
                 run: |
-                    mkdir resc
+                    mkdir Cura
                     cd resc
                     git init
                     git sparse-checkout set resources/definitions resources/extruders
@@ -127,13 +158,21 @@ jobs:
                     git pull origin main
                     cd ..
 
+            -   name: Build CuraEngine
+                run: |
+                    cmake --preset release
+                    cmake --build --preset release
+
             -   name: Run CuraEngine On The Jobs
                 run: |
-                    export CURA_ENGINE_SEARCH_PATH=./resc/resources/definitions:./resc/resources/extruders
-                    #ls
-                    #ls ./build
-                    ls ./tests
-                    ls ./tests/integration/resources
-                    ./CuraEngine slice --force-read-parent --force-read-nondefault -v -p -j ultimaker_s3.def.json -l ./tests/integration/resources/cube.stl -o ./cube.gcode
-                    #./build/Release/CuraEngine slice --force-read-parent --force-read-nondefault -v -p -j ultimaker_s3.def.json -l ./tests/integration/resources/cylinder1000.stl -o ./cylinder1000.gcode
-                working-directory: build/Release
+                    export CURA_ENGINE_SEARCH_PATH=../Cura/resources/definitions:../Cura/resources/extruders
+                    ./build/Release/CuraEngine slice --force-read-parent --force-read-nondefault -v -p -j ultimaker_s3.def.json -l ./tests/integration/resources/cube.stl -o ../cube.gcode
+                    #./build/Release/CuraEngine slice --force-read-parent --force-read-nondefault -v -p -j ultimaker_s3.def.json -l ./tests/integration/resources/cylinder1000.stl -o ../cylinder1000.gcode
+                working-directory: CuraEngine
+            
+            -   name: Run GCodeAnalyzer
+                run: |
+                    python -m pip install wheel numpy pandas python-dateutil pytz six git+https://github.com/ultimaker/libcharon@master/s-line#egg=charon
+                    echo -e "import GCodeAnalyzer\nframe = GCodeAnalyzer.DataFrame('../cube.gcode')\nframe" >> run_test.py
+                    python ./run_test.py 
+                working-directory: GCodeAnalyzer
