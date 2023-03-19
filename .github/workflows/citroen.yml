@@ -40,12 +40,12 @@ jobs:
                 {
                 "name": "Aaa",
                 "unit": "Squerps",
-                "value": 10.5,
+                "value": 11.5,
                 },
                 {
                 "name": "Bbb",
                 "unit": "Blorf",
-                "value": 44,
+                "value": 40,
                 },
             ]
             datastr = json.dumps(data)
