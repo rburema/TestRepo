@@ -7,5 +7,4 @@ data = None
 with open(sys.argv[1]) as f:
     data = json.load(f)
 
-for pr in data:
-	print(pr["id"])
+print(len(data))

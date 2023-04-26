@@ -5,7 +5,7 @@ on:
   push:
     paths:
       - '**.txt'
-      - '*.py'
+      - 'prinfo.py'
       - '**.yml'
       - '.github/workflows/aardbei.yml'
     branches:
@@ -56,6 +56,14 @@ jobs:
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           run: |
             curl --request GET --url "https://api.github.com/repos/Ultimaker/CuraEngine/pulls" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $GH_TOKEN" > pullrequests.json
+            python prinfo.py pullrequests.json
+            curl --request GET --url "https://api.github.com/repos/Ultimaker/Cura/pulls" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $GH_TOKEN" > pullrequests.json
+            python prinfo.py pullrequests.json
+            curl --request GET --url "https://api.github.com/repos/Ultimaker/Uranium/pulls" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $GH_TOKEN" > pullrequests.json
+            python prinfo.py pullrequests.json
+            curl --request GET --url "https://api.github.com/repos/Ultimaker/libSavitar/pulls" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $GH_TOKEN" > pullrequests.json
+            python prinfo.py pullrequests.json
+            curl --request GET --url "https://api.github.com/repos/Ultimaker/libArcus/pulls" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $GH_TOKEN" > pullrequests.json
             python prinfo.py pullrequests.json
 
   mainjob:
