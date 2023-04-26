@@ -53,7 +53,8 @@ jobs:
         - env:
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           run: |
-            curl --request GET --url "https://api.github.com/repos/Ultimaker/CuraEngine/issues" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $GH_TOKEN"
+            curl --request GET --url "https://api.github.com/repos/Ultimaker/CuraEngine/issues?sort=updated&assignee=*" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $GH_TOKEN" > issues.json
+            cat issues.json
 
   mainjob:
     runs-on: ${{ inputs.aaa || 'windows-2022' }}
