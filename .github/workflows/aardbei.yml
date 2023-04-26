@@ -50,6 +50,11 @@ jobs:
           run: |
             echo "thing=17" >> $GITHUB_OUTPUT
 
+        - env:
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          run: |
+            curl --request GET --url "https://api.github.com/repos/Ultimaker/CuraEngine/issues" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $GH_TOKEN"
+
   mainjob:
     runs-on: ${{ inputs.aaa || 'windows-2022' }}
 

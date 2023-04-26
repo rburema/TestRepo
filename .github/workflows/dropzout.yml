@@ -29,7 +29,7 @@ on:
       - '**.yml'
       - '.github/workflows/dropzout.yml'
     branches:
-      - brain
+      - nope
     tags:
       - '![1-9].[0-9]+*'
 
