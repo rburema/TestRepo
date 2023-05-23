@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - '**.txt'
+      - 'prinfo.py'
       - '**.yml'
       - '.github/workflows/aardbei.yml'
     branches:
@@ -49,6 +50,31 @@ jobs:
           name: Stuff Thing
           run: |
             echo "thing=17" >> $GITHUB_OUTPUT
+
+        - name: Get Issue Count(s)
+          env:
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          run: |
+            curl --request GET --url "https://api.github.com/repos/Ultimaker/Cura/pulls" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $GH_TOKEN" > cura_pr.json
+            python prinfo.py cura_pr.json
+            curl --request GET --url "https://api.github.com/repos/Ultimaker/CuraEngine/pulls" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $GH_TOKEN" > cura_engine_pr.json
+            python prinfo.py cura_engine_pr.json
+            curl --request GET --url "https://api.github.com/repos/Ultimaker/Uranium/pulls" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $GH_TOKEN" > uranium_pr.json
+            python prinfo.py uranium_pr.json
+            curl --request GET --url "https://api.github.com/repos/Ultimaker/pySavitar/pulls" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $GH_TOKEN" > psavitar_pr.json
+            python prinfo.py psavitar_pr.json            
+            curl --request GET --url "https://api.github.com/repos/Ultimaker/libSavitar/pulls" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $GH_TOKEN" > csavitar_pr.json
+            python prinfo.py csavitar_pr.json
+            curl --request GET --url "https://api.github.com/repos/Ultimaker/pyNest2d/pulls" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $GH_TOKEN" > pnest_pr.json
+            python prinfo.py pnest_pr.json
+            curl --request GET --url "https://api.github.com/repos/Ultimaker/libNest2d/pulls" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $GH_TOKEN" > cnest_pr.json
+            python prinfo.py cnest_pr.json
+            curl --request GET --url "https://api.github.com/repos/Ultimaker/pyArcus/pulls" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $GH_TOKEN" > parcus_pr.json
+            python prinfo.py parcus_pr.json
+            curl --request GET --url "https://api.github.com/repos/Ultimaker/libArcus/pulls" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $GH_TOKEN" > carcus_pr.json
+            python prinfo.py carcus_pr.json
+            curl --request GET --url "https://api.github.com/repos/Ultimaker/fdm_materials/pulls" --header "Accept: application/vnd.github+json" --header "Authorization: Bearer $GH_TOKEN" > fdmm_pr.json
+            python prinfo.py fdmm_pr.json
 
   mainjob:
     runs-on: ${{ inputs.aaa || 'windows-2022' }}

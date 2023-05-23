@@ -11,7 +11,7 @@ on:
       - '**.yml'
       - '.github/workflows/citroen.yml'
     branches:
-      - brain
+      - nope
     tags:
       - '![1-9].[0-9]+*'
 
@@ -33,17 +33,33 @@ jobs:
         - name: Checkout
           uses: actions/checkout@v3
 
-        - name: Repro Of Error?
+        - name: Pretend Benchmark
           run: |
-            sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-            sudo apt update
-            sudo apt upgrade
-            sudo apt install build-essential checkinstall libegl-dev zlib1g-dev libssl-dev ninja-build autoconf libx11-dev libx11-xcb-dev libfontenc-dev libice-dev libsm-dev libxau-dev libxaw7-dev libxcomposite-dev libxcursor-dev libxdamage-dev libxdmcp-dev libxext-dev libxfixes-dev libxi-dev libxinerama-dev libxkbfile-dev libxmu-dev libxmuu-dev libxpm-dev libxrandr-dev libxrender-dev libxres-dev libxss-dev libxt-dev libxtst-dev libxv-dev libxvmc-dev libxxf86vm-dev xtrans-dev libxcb-render0-dev libxcb-render-util0-dev libxcb-xkb-dev libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev libxcb-randr0-dev libxcb-shape0-dev libxcb-sync-dev libxcb-xfixes0-dev libxcb-xinerama0-dev xkb-data libxcb-dri3-dev uuid-dev libxcb-util-dev libxkbcommon-x11-dev pkg-config flex bison -y
+            import json
+            data = [
+                {
+                "name": "Aaa",
+                "unit": "Squerps",
+                "value": 11.5,
+                },
+                {
+                "name": "Bbb",
+                "unit": "Blorf",
+                "value": 40,
+                },
+            ]
+            datastr = json.dumps(data)
+            with open("output.json", "w") as file:
+                file.write(datastr)
+          shell: python
 
-        - name: Check Deps
-          run: |
-            sudo apt-cache rdepends unixodbc
-            sudo apt-cache rdepends unixodbc-common
-            sudo apt-cache rdepends libodbc1
-            sudo apt-cache rdepends libodbcinst2
-            sudo apt-cache rdepends libsqliteodbc
+        - name: Store benchmark result
+          uses: benchmark-action/github-action-benchmark@v1
+          with:
+            name: My Project BLEH Benchmark
+            output-file-path: output.json
+            tool: customBiggerIsBetter
+            # Access token to deploy GitHub Pages branch
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            # Push and deploy GitHub pages branch automatically
+            auto-push: true
