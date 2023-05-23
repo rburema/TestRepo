@@ -36,7 +36,7 @@ jobs:
                     commands_per_branch = [
                         "git checkout $BRANCH",
                         "git pull",
-                        "git merge main",
+                        "git merge brain",
                         "git push",
                     ]
                     for branch in getBranches():
@@ -50,4 +50,5 @@ jobs:
                         #if ticket_no < 10000:
                         #    continue
                         for cmd in commands_per_branch:
-                            rrun(cmd.replace("$BRANCH", branch))                
+                            rrun(cmd.replace("$BRANCH", branch))
+       
