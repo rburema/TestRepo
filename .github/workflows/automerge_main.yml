@@ -42,7 +42,6 @@ jobs:
                         #    continue
                         #if ticket_no < 10000:
                         #    continue
-                        
                         print(f"branch: {branch}")
                         hash_pre=""
                         try:
