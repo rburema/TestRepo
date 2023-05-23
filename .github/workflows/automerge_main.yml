@@ -31,7 +31,7 @@ jobs:
                     def getBranches():
                         get_branches=rrun("git branch -r --format=%(refname:short)")
                         return [x.split("/")[1] for x in get_branches.stdout.split("\n") if x]
-                    rrun("git --version")
+                    print(rrun("git --version"))
                     rrun("git config pull.rebase false")
                     commands_per_branch = [
                         "git checkout $BRANCH",
