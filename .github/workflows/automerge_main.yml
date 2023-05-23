@@ -35,18 +35,18 @@ jobs:
                 commands_per_branch = [
                     "git checkout $BRANCH",
                     "git pull",
-                    "git merge main",
+                    "git merge brain",
                     "git push",
                 ]
                 for branch in getBranches():
                     # TODO: Also for the latest version branch.
-                    if branch == "main" or not branch.startsWith("CURA-"):
+                    if branch == "brain": # or not branch.startsWith("CURA-"):
                         continue
-                    try:
-                        ticket_no = int(branch.split("-")[1])
-                    except:
-                        continue
-                    if ticket_no < 10000:
-                        continue
+                    #try:
+                    #    ticket_no = int(branch.split("-")[1])
+                    #except:
+                    #    continue
+                    #if ticket_no < 10000:
+                    #    continue
                     for cmd in commands_per_branch:
                         rrun(cmd.replace("$BRANCH", branch))                
