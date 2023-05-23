@@ -37,7 +37,7 @@ for branch in getBranches():
         rrun("git merge --abort")
         rrun("git reset --hard")
         continue
-    try
+    try:
         hash_post = rrun("git rev-parse HEAD")
         if hash_pre != hash_post:
             print("merge successful")
