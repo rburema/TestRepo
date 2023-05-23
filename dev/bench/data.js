@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1679258709223,
+  "lastUpdate": 1684873883521,
   "repoUrl": "https://github.com/rburema/TestRepo",
   "entries": {
     "My Project BLEH Benchmark": [
@@ -57,6 +57,36 @@ window.BENCHMARK_DATA = {
           "url": "https://github.com/rburema/TestRepo/commit/b1d23a829bad62c336951363a7c46a642d01646a"
         },
         "date": 1679258708643,
+        "tool": "customBiggerIsBetter",
+        "benches": [
+          {
+            "name": "Aaa",
+            "value": 11.5,
+            "unit": "Squerps"
+          },
+          {
+            "name": "Bbb",
+            "value": 40,
+            "unit": "Blorf"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "rburema",
+            "username": "rburema"
+          },
+          "committer": {
+            "name": "rburema",
+            "username": "rburema"
+          },
+          "id": "83cb3bee3473a5e5795ceafb48879e885f54acd5",
+          "message": "Main",
+          "timestamp": "2023-04-26T14:59:04Z",
+          "url": "https://github.com/rburema/TestRepo/pull/4/commits/83cb3bee3473a5e5795ceafb48879e885f54acd5"
+        },
+        "date": 1684873882458,
         "tool": "customBiggerIsBetter",
         "benches": [
           {
