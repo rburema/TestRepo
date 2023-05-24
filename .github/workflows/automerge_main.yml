@@ -48,9 +48,9 @@ jobs:
                         hash_pre=""
                         try:
                             rrun("git checkout brain")
-                            rrun("git pull")
+                            rrun("git pull --rebase")
                             rrun(f"git checkout {branch}")
-                            rrun("git pull")
+                            rrun("git pull --rebase")
                             hash_pre = rrun("git rev-parse HEAD")
                         except:
                             try:
@@ -59,7 +59,7 @@ jobs:
                                 pass
                             continue
                         try:
-                            rrun("git merge brain")
+                            rrun("git merge origin/brain")
                         except:
                             try:
                                 rrun("git merge --abort")
