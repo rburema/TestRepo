@@ -44,14 +44,15 @@ jobs:
 #          style: file
 
       - name: Did it actually do something with the files?
+        if: always()
         run: |
             git status
 
-      - name: Fail fast?!
-        if: steps.linter.outputs.checks-failed > 0
-        run: echo "Some files failed the linting checks!"
-        # for actual deployment
-        # run: exit 1
+#      - name: Fail fast?!
+#        if: steps.linter.outputs.checks-failed > 0
+#        run: echo "Some files failed the linting checks!"
+#        # for actual deployment
+#        # run: exit 1
 
   #windows_aardbei:
   #  uses: ./.github/workflows/aardbei.yml
