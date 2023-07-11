@@ -63,11 +63,10 @@ jobs:
             rrun('git add ./src/*', False)
             rrun('git add ./include/*', False)
             rrun('git add main.cpp', False)
-            print(rrun('git status'))
             prev_author = rrun('git show --format="%aN~<%aE>"').split('\n')[0]
             commit_message = f"Apply changes from automatic linting.\n\nCo-authored-by: {prev_author}".replace(' ', '~')
             rrun(f'git commit -m "{commit_message}"')
-            print(rrun('git status'))
+            rrun('git push')
 
 #      - name: Fail fast?!
 #        if: steps.linter.outputs.checks-failed > 0
