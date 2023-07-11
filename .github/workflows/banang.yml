@@ -58,8 +58,8 @@ jobs:
                     raise Exception(err)
                 return res.stdout
             print(rrun('git status'))
-            rrun('git config user.name="linter-bot"')
-            rrun('git config user.email="support@ultimaker.com"')
+            rrun('git config user.name "linter-bot"')
+            rrun('git config user.email "support@ultimaker.com"')
             rrun('git add ./src/*', False)
             rrun('git add ./include/*', False)
             rrun('git add main.cpp', False)
