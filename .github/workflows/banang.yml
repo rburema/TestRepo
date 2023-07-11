@@ -50,7 +50,7 @@ jobs:
         shell: python
         run: |
             from subprocess import run
-            def rrun(cmd, throw_on_error=true):
+            def rrun(cmd, throw_on_error=True):
                 res = run(cmd.split(" "), capture_output=True, text=True)
                 if throw_on_error and res.returncode != 0:
                     err = f"failed to run '{cmd}' because '{res.stderr if res.stderr else res.stdout}'"
