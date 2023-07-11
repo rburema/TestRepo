@@ -53,13 +53,13 @@ jobs:
             def rrun(cmd, throw_on_error=True):
                 res = run([x.replace('~', ' ') for x in cmd.split(" ")], capture_output=True, text=True)
                 if throw_on_error and res.returncode != 0:
-                    err = f"failed to run '{cmd}' because '{res.stderr if res.stderr else res.stdout}'"
+                    err = f"failed to run '{cmd.replace('~', ' ')}' because '{res.stderr if res.stderr else res.stdout}'"
                     print(err)
                     raise Exception(err)
                 return res.stdout
             print(rrun('git status'))
-            rrun('git config author.name = "linter-bot"')
-            rrun('git config author.email = "support@ultimaker.com"')
+            rrun('git config user.name="linter-bot"')
+            rrun('git config user.email="support@ultimaker.com"')
             rrun('git add ./src/*', False)
             rrun('git add ./include/*', False)
             rrun('git add main.cpp', False)
