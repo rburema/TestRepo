@@ -33,12 +33,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: cpp-linter/cpp-linter-action@v2
-        id: linter
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          style: file
+
+      - uses: pre-commit/action@v3.0.0
+
+#      - uses: cpp-linter/cpp-linter-action@v2
+#        id: linter
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          style: file
 
       - name: Did it actually do something with the files?
         run: |
