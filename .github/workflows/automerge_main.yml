@@ -30,7 +30,7 @@ jobs:
                     def getBranches():
                         raw_branches=rrun("git branch -r --format=%(refname:short)")
                         print(raw_branches)
-                        return [x.split("/")[1] for x in raw_branches.split("\n") if x and x.startswith("origin")]
+                        return [x.split("/")[1] for x in raw_branches.split("\n") if x and x.startswith("origin/")]
                     print(rrun("git --version"))
                     rrun("git config pull.rebase false")
                     rrun("git fetch --all")

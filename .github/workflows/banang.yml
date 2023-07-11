@@ -29,41 +29,58 @@ env:
     OS_NAME: 'unkown-os'
 
 jobs:
-  windows_aardbei:
-    uses: ./.github/workflows/aardbei.yml
-
-    strategy:
-      fail-fast: false
-      matrix:
-        aaa: [windows-2022]
-
-    with:
-        aaa: ${{ matrix.aaa }}
-
-  linux_aardbei:
-      uses: ./.github/workflows/aardbei.yml
-      with:
-        aaa: 'ubuntu-latest'
-
-  mainjob:
-    runs-on: ${{ matrix.os }}
-    
-    needs: [ windows_aardbei ]
-    
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [windows-2022]
-        zed: [x]
-
+  cpp-linter:
+    runs-on: ubuntu-latest
     steps:
-        - name: Checkout
-          uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - uses: cpp-linter/cpp-linter-action@v2
+        id: linter
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          style: file
 
-        - name: What's That OS String?
-          run: |
-            echo "OS_NAME=${{ (matrix.os == 'ubuntu-22.04' && 'LNIUX') || (matrix.os == 'windows-2022' && 'WINBDOWS') || (matrix.os == 'blaaaah' && 'bloeh') || matrix.os }}" >> $GITHUB_ENV
+      - name: Fail fast?!
+        if: steps.linter.outputs.checks-failed > 0
+        run: echo "Some files failed the linting checks!"
+        # for actual deployment
+        # run: exit 1
 
-        - name: Do Thing Also
-          run: |
-            echo 'PROGRESS GOES BONK: $RANDOM | ${{ needs.windows_aardbei.outputs.thething }} | ${{ env.OS_NAME }} | ${{ inputs.all_platforms }}'
+  #windows_aardbei:
+  #  uses: ./.github/workflows/aardbei.yml
+
+  #  strategy:
+  #    fail-fast: false
+  #    matrix:
+  #      aaa: [windows-2022]
+
+  #  with:
+  #     aaa: ${{ matrix.aaa }}
+
+  #linux_aardbei:
+  #    uses: ./.github/workflows/aardbei.yml
+  #    with:
+  #      aaa: 'ubuntu-latest'
+
+  #mainjob:
+  #  runs-on: ${{ matrix.os }}
+
+  #  needs: [ windows_aardbei ]
+
+  #  strategy:
+  #    fail-fast: false
+  #    matrix:
+  #      os: [windows-2022]
+  #      zed: [x]
+
+  #  steps:
+  #      - name: Checkout
+  #        uses: actions/checkout@v3
+
+  #      - name: What's That OS String?
+  #        run: |
+  #          echo "OS_NAME=${{ (matrix.os == 'ubuntu-22.04' && 'LNIUX') || (matrix.os == 'windows-2022' && 'WINBDOWS') || (matrix.os == 'blaaaah' && 'bloeh') || matrix.os }}" >> $GITHUB_ENV
+
+  #      - name: Do Thing Also
+  #        run: |
+  #          echo 'PROGRESS GOES BONK: $RANDOM | ${{ needs.windows_aardbei.outputs.thething }} | ${{ env.OS_NAME }} | ${{ inputs.all_platforms }}'
