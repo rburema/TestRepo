@@ -51,7 +51,7 @@ jobs:
         run: |
             from subprocess import run
             def rrun(cmd, throw_on_error=True):
-                res = run(cmd.split(" "), capture_output=True, text=True)
+                res = run(cmd.split(" ").replace('#', ' '), capture_output=True, text=True)
                 if throw_on_error and res.returncode != 0:
                     err = f"failed to run '{cmd}' because '{res.stderr if res.stderr else res.stdout}'"
                     print(err)
@@ -65,7 +65,7 @@ jobs:
             rrun('git add main.cpp', False)
             print(rrun('git status'))
             prev_author = rrun('git show --format="%aN#<%aE>"').split('\n')[0].replace('#', ' ')
-            commit_message = f"Apply changes from automatic linting.\n\nCo-authored-by: {prev_author}"
+            commit_message = f"Apply changes from automatic linting.\n\nCo-authored-by: {prev_author}".replace(' ', '#')
             rrun(f'git commit -m "{commit_message}"')
             print(rrun('git status'))
 
