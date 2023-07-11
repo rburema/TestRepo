@@ -58,7 +58,9 @@ jobs:
                     print(err)
                     raise Exception(err)
                 return res.stdout
-            print(rrun('git status'))
+            status = rrun('git status --short')
+            if len(status) == 0:
+                return
             rrun('git config user.name "linter-bot"')
             rrun('git config user.email "support@ultimaker.com"')
             rrun('git add ./src/*', False)
