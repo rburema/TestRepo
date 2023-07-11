@@ -66,7 +66,7 @@ jobs:
             rrun('git add main.cpp', False)
             prev_author = rrun('git show --format=%aN~<%aE>').split('\n')[0]
             commit_message = f"Apply changes from automatic linting.\n\nCo-authored-by: {prev_author}".replace(' ', '~')
-            rrun(f"git commit -m '{commit_message}'")
+            rrun(f'git commit -m {commit_message}')
             rrun('git push')
 
 #      - name: Fail fast?!
