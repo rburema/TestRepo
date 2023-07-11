@@ -50,9 +50,9 @@ jobs:
         shell: python
         run: |
             from subprocess import run
-            def rrun(cmd):
+            def rrun(cmd, throw_on_error=true):
                 res = run(cmd.split(" "), capture_output=True, text=True)
-                if res.returncode != 0:
+                if throw_on_error and res.returncode != 0:
                     err = f"failed to run '{cmd}' because '{res.stderr if res.stderr else res.stdout}'"
                     print(err)
                     raise Exception(err)
@@ -60,9 +60,9 @@ jobs:
             print(rrun('git status'))
             rrun('git config author.name = "linter-bot"')
             rrun('git config author.email = "support@ultimaker.com"')
-            rrun('git add ./src/*')
-            rrun('git add ./include/*')
-            rrun('git add main.cpp')
+            rrun('git add ./src/*', false)
+            rrun('git add ./include/*', false)
+            rrun('git add main.cpp', false)
             print(rrun('git status'))
             prev_author = rrun('git show --format="%aN <%aE>"').split('\n')[0]
             commit_message = f"Apply changes from automatic linting.\n\nCo-authored-by: {prev_author}"
