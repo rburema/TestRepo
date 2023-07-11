@@ -60,7 +60,7 @@ jobs:
                 return res.stdout
             status = rrun('git status --short')
             if len(status) == 0:
-                return
+                exit(0)
             rrun('git config user.name "linter-bot"')
             rrun('git config user.email "support@ultimaker.com"')
             rrun('git add ./src/*', False)
