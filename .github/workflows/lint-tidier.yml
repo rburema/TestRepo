@@ -43,7 +43,7 @@ jobs:
       - name: Diagnose file(s)
         if: env.GIT_DIFF && !env.MATCHED_FILES
         run: |
-          clang-tidy --config-file=.\.clang-tidy ${{ env.GIT_DIFF_FILTERED }}
+          clang-tidy --config-file=.clang-tidy ${{ env.GIT_DIFF_FILTERED }}
 
       - name: Save PR metadata
         run: |
