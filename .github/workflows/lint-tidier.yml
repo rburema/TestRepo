@@ -21,8 +21,8 @@ jobs:
       - uses: technote-space/get-diff-action@v6
         with:
           PATTERNS: |
-            ./**/*.cpp
-            ./**/*.h
+            include/**/*.h*
+            src/**/*.c*
 
       - name: Setup Python and pip
         if: env.GIT_DIFF && !env.MATCHED_FILES  # If nothing happens with python and/or pip after, the clean-up crashes.
@@ -43,7 +43,7 @@ jobs:
         if: env.GIT_DIFF && !env.MATCHED_FILES
         run: |
             shopt -s globstar
-            clang-tidy --config-file=.\.clang-tidy ./**/*.cpp ./**/*.h
+            clang-tidy --config-file=.\.clang-tidy src/**/*.c* include/**/*.h*
 
       - name: Save PR metadata
         run: |

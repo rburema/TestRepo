@@ -23,8 +23,8 @@ jobs:
             -   uses: technote-space/get-diff-action@v6
                 with:
                     PATTERNS: |
-                        ./**/*.cpp
-                        ./**/*.h
+                      include/**/*.h*
+                      src/**/*.c*
 
             -   name: Setup Python and pip
                 if: env.GIT_DIFF && !env.MATCHED_FILES  # If nothing happens with python and/or pip after, the clean-up crashes.
