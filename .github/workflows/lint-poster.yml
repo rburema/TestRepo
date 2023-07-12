@@ -2,7 +2,7 @@ name: lint-poster
 
 on:
   workflow_run:
-    workflows: ["lint-formatter","lint-tidier"]
+    workflows: ["lint-tidier"]
     types: [completed]
 
 jobs:
