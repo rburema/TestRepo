@@ -3,12 +3,6 @@
 #include <string_view>
 #include <vector>
 
-class A
-{
-public:
-    int z;
-} xxx;
-
 int main()
 {
     using namespace std::literals;
