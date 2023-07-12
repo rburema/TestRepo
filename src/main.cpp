@@ -3,6 +3,14 @@
 #include <string_view>
 #include <vector>
 
+auto aaa(const int& a) -> int
+{
+	static int last = 0;
+	const int r = a * last;
+	last = a;
+	return r;
+}
+
 int main()
 {
     using namespace std::literals;
@@ -21,7 +29,7 @@ int main()
         std::cout << '\n';
         for (auto const ee : e)
         {
-            std::cout << ee << ' ';
+            std::cout << aaa(ee) << ' ';
         }
     }
     std::cout << '\n';
