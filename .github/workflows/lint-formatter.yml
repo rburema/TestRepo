@@ -4,12 +4,9 @@ on:
     workflow_dispatch:
 
     push:
-        paths:
-            - 'resources/definitions/**'
-            - 'resources/extruders/**'
-            - 'resources/intent/**'
-            - 'resources/quality/**'
-            - 'resources/variants/**'
+      paths:
+        - 'include/**/*.h*'
+        - 'src/**/*.c*'
 
 jobs:
     lint-formatter-job:
