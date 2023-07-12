@@ -1,6 +1,8 @@
 name: lint-formatter
 
 on:
+    workflow_dispatch:
+
     push:
         paths:
             - 'resources/definitions/**'

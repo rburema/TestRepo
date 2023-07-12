@@ -25,9 +25,4 @@ int main()
         }
     }
     std::cout << '\n';
-
-    if (false)
-    {
-        std::cout << "aaa";
-    }
 }
