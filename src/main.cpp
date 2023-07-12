@@ -5,10 +5,10 @@
 
 auto aaa(const int& a) -> int
 {
-	static int last = 0;
-	const int r = a * last;
-	last = a;
-	return r;
+    static int last = 0;
+    const int r = a * last;
+    last = a;
+    return r;
 }
 
 int main()
