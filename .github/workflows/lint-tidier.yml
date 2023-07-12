@@ -44,7 +44,7 @@ jobs:
         if: env.GIT_DIFF && !env.MATCHED_FILES
         continue-on-error: true
         run: |
-          clang-tidy --config-file=.clang-tidy ${{ env.GIT_DIFF_FILTERED }} >> linter-result/clang-tidy-output.txt
+          clang-tidy --config-file=.clang-tidy ${{ env.GIT_DIFF_FILTERED }} --export-fixes=linter-result/fixes.yml
 
       - name: Save PR metadata
         run: |
@@ -61,5 +61,5 @@ jobs:
         uses: platisd/clang-tidy-pr-comments@bc0bb7da034a8317d54e7fe1e819159002f4cc40
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          clang_tidy_fixes: result.yml
+          clang_tidy_fixes: linter-result/fixes.yml
           request_changes: true
