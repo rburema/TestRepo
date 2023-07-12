@@ -3,8 +3,10 @@
 #include <string_view>
 #include <vector>
 
-class A{
-	public: int z;
+class A
+{
+public:
+    int z;
 } xxx;
 
 int main()
@@ -16,8 +18,7 @@ int main()
         std::cout << c;
     std::cout << '\n';
 
-    const std::vector<std::vector<int>> v{ { 1, 2 }, { 3, 4, 5 },
-	{ 6 }, { 7, 8, 9 } };
+    const std::vector<std::vector<int>> v{ { 1, 2 }, { 3, 4, 5 }, { 6 }, { 7, 8, 9 } };
     const std::vector<std::vector<std::vector<int>>> w{ v, v, v };
 
     auto jv = std::ranges::join_view(w);
