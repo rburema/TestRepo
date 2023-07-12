@@ -21,8 +21,8 @@ jobs:
       - uses: technote-space/get-diff-action@v6
         with:
           PATTERNS: |
-            resources/+(extruders|definitions)/*.def.json
-            resources/+(intent|quality|variants)/**/*.inst.cfg
+            ./**/*.cpp
+            ./**/*.h
 
       - name: Setup Python and pip
         if: env.GIT_DIFF && !env.MATCHED_FILES  # If nothing happens with python and/or pip after, the clean-up crashes.
