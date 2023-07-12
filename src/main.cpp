@@ -3,6 +3,11 @@
 #include <string_view>
 #include <vector>
 
+class A {
+	public:
+	int z;
+};
+
 int main()
 {
     using namespace std::literals;
@@ -21,7 +26,8 @@ int main()
         std::cout << '\n';
         for (auto const ee : e)
         {
-            std::cout << ee << ' ';
+			A.z = ee;
+            std::cout << A.z << ' ';
         }
     }
     std::cout << '\n';
