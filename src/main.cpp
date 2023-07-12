@@ -3,9 +3,10 @@
 #include <string_view>
 #include <vector>
 
-class A {
-	public:
-	int z;
+class A
+{
+public:
+    int z;
 };
 
 int main()
@@ -26,7 +27,7 @@ int main()
         std::cout << '\n';
         for (auto const ee : e)
         {
-			A.z = ee;
+            A.z = ee;
             std::cout << A.z << ' ';
         }
     }
